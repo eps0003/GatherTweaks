@@ -60,11 +60,11 @@ void onTick(CBlob@ this)
 					}
 				}
 
-				map.server_SetTile(pos + Vec2f(-16, 12), CMap::tile_bedrock);
+				// map.server_SetTile(pos + Vec2f(-16, 12), CMap::tile_bedrock);
 				map.server_SetTile(pos + Vec2f(-8, 12), CMap::tile_bedrock);
 				map.server_SetTile(pos + Vec2f(0, 12), CMap::tile_bedrock);
 				map.server_SetTile(pos + Vec2f(8, 12), CMap::tile_bedrock);
-				map.server_SetTile(pos + Vec2f(16, 12), CMap::tile_bedrock);
+				// map.server_SetTile(pos + Vec2f(16, 12), CMap::tile_bedrock);
 
 				this.set_Vec2f("stick position", this.getPosition());
 			}
