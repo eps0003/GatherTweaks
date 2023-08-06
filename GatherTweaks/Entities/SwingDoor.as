@@ -181,66 +181,78 @@ void onEndCollision(CBlob@ this, CBlob@ blob)
 	}
 }
 
-
 bool canBePickedUp(CBlob@ this, CBlob@ byBlob)
 {
 	return false;
 }
 
-// this is such a pain - can't edit animations at the moment, so have to just carefully add destruction frames to the close animation >_>
 f32 onHit(CBlob@ this, Vec2f worldPoint, Vec2f velocity, f32 damage, CBlob@ hitterBlob, u8 customData)
 {
 	if (customData == Hitters::boulder)
 		return 0;
 
-	//print("custom data: "+customData+" builder: "+Hitters::builder);
-	if (customData == Hitters::builder)
-		damage *= 2;
-	if (customData == Hitters::drill)                //Hitters::saw is the drill hitter.... why //fixed
-		damage *= 2;
-	if (customData == Hitters::bomb)
-		damage *= 2;
-	if (customData == Hitters::sword)
-		damage *= 2;
-
-	CSprite @sprite = this.getSprite();
-
-	if (sprite !is null)
+	switch (customData)
 	{
-		u8 frame = 0;
+		case Hitters::builder:
+			damage *= 2.0f;
+			break;
+		case Hitters::sword:
+			damage *= 1.5f;
+			break;
+		case Hitters::bomb:
+			damage *= 1.4f;
+			if (hitterBlob.getTeamNum() == this.getTeamNum())
+				damage *= 0.65f;
+			break;
+		case Hitters::drill:
+			damage *= 2.0f;
+			break;
+		default:
+			break;
+	}
 
-		Animation @destruction_anim = sprite.getAnimation("destruction");
-
-		if (destruction_anim !is null)
-		{
-			if ((this.getHealth() - damage) < this.getInitialHealth())
-			{
-				f32 ratio = (this.getHealth() - damage * getRules().attackdamage_modifier) / this.getInitialHealth();
-
-				if (ratio <= 0.0f)
-				{
-					frame = destruction_anim.getFramesCount() - 1;
-				}
-				else
-				{
-					frame = (1.0f - ratio) * (destruction_anim.getFramesCount());
-				}
-
-				frame = destruction_anim.getFrame(frame);
-			}
-		}
-
-		Animation @close_anim = sprite.getAnimation("close");
-		u8 lastframe = close_anim.getFrame(close_anim.getFramesCount() - 1);
-		if (lastframe < frame)
-		{
-			close_anim.AddFrame(frame);
-		}
+	if (this.hasTag("will_soon_collapse"))
+	{
+		damage *= 1.25f;
 	}
 
 	return damage;
 }
 
+void onHealthChange(CBlob@ this, f32 oldHealth)
+{
+	f32 hp = this.getHealth();
+	bool repaired = (hp > oldHealth);
+	MakeDamageFrame(this, repaired);
+}
+
+void MakeDamageFrame(CBlob@ this, bool repaired=false)
+{
+	CSprite@ sprite = this.getSprite();
+	f32 hp = this.getHealth();
+	f32 full_hp = this.getInitialHealth();
+	Animation@ destruction_anim = sprite.getAnimation("destruction");
+
+	if (destruction_anim !is null)
+	{
+		int frame_count = destruction_anim.getFramesCount();
+		int frame = frame_count - frame_count * (hp / full_hp);
+		destruction_anim.frame = frame;
+
+		Animation @close_anim = sprite.getAnimation("close");
+
+		if(close_anim !is null)
+		{
+			close_anim.RemoveFrame(close_anim.getFramesCount() - 1);
+			close_anim.AddFrame(destruction_anim.getFrame(frame));
+		}
+
+		if(repaired)
+		{
+			sprite.PlaySound("/build_door.ogg");
+		}
+	}
+}
 
 bool doesCollideWithBlob(CBlob@ this, CBlob@ blob)
 {

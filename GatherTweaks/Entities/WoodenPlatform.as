@@ -2,13 +2,12 @@
 
 #include "FireCommon.as"
 
-Random _r();
+Random random;
 
 void onInit(CBlob@ this)
 {
 	this.SetFacingLeft(XORRandom(128) > 64);
 
-	this.getSprite().getConsts().accurateLighting = true;
 	this.getShape().getConsts().waterPasses = true;
 
 	CShape@ shape = this.getShape();
@@ -31,6 +30,29 @@ void onInit(CBlob@ this)
 			this.set('harvest', harvest);
 		}
 	}
+
+	MakeDamageFrame(this);
+}
+
+void onHealthChange(CBlob@ this, f32 oldHealth)
+{
+	f32 hp = this.getHealth();
+	bool repaired = (hp > oldHealth);
+	MakeDamageFrame(this, repaired);
+}
+
+void MakeDamageFrame(CBlob@ this, bool repaired = false)
+{
+	f32 hp = this.getHealth();
+	f32 full_hp = this.getInitialHealth();
+	int frame_count = this.getSprite().animation.getFramesCount();
+	int frame = frame_count - frame_count * (hp / full_hp);
+	this.getSprite().animation.frame = frame;
+
+	if (repaired)
+	{
+		this.getSprite().PlaySound("/build_wood.ogg");
+	}
 }
 
 void onSetStatic(CBlob@ this, const bool isStatic)
@@ -51,7 +73,7 @@ void onTick(CBlob@ this)
 	s16 burn_time = this.get_s16(burn_timer);
 	if (burn_time > 0 && (burn_time % 3) == 0 && this.hasTag(spread_fire_tag))
 	{
-		Vec2f p = this.getPosition() + Vec2f((_r.NextFloat() - 0.5f) * 16.0f, (_r.NextFloat() - 0.5f) * 16.0f);
+		Vec2f p = this.getPosition() + Vec2f((random.NextFloat() - 0.5f) * 16.0f, (random.NextFloat() - 0.5f) * 16.0f);
 		getMap().server_setFireWorldspace(p, true);
 	}
 }

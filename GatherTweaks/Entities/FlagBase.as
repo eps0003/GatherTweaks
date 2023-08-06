@@ -51,20 +51,20 @@ void onTick(CBlob@ this)
 
 				map.server_AddSector(pos + Vec2f(-12, -32), pos + Vec2f(12, 16), "no build", "", this.getNetworkID());
 
-				//clear the no build zone so we dont get unbreakable dirt blocks
-				for (int x = -12; x < 8; x += 4)
+				//clear the no build zone so we dont get unbreakable blocks
+				for (int x = -12; x < 12; x += 8)
 				{
-					for (int y = -32; y < 16; y += 4)
+					for (int y = -32; y < 8; y += 8)
 					{
 						map.server_SetTile(pos + Vec2f(x, y), CMap::tile_empty);
 					}
 				}
 
-				// map.server_SetTile(pos + Vec2f(-16, 12), CMap::tile_bedrock);
+				map.server_SetTile(pos + Vec2f(-16, 12), CMap::tile_bedrock);
 				map.server_SetTile(pos + Vec2f(-8, 12), CMap::tile_bedrock);
 				map.server_SetTile(pos + Vec2f(0, 12), CMap::tile_bedrock);
 				map.server_SetTile(pos + Vec2f(8, 12), CMap::tile_bedrock);
-				// map.server_SetTile(pos + Vec2f(16, 12), CMap::tile_bedrock);
+				map.server_SetTile(pos + Vec2f(16, 12), CMap::tile_bedrock);
 
 				this.set_Vec2f("stick position", this.getPosition());
 			}
@@ -82,7 +82,7 @@ void onTick(CBlob@ this)
 				this.Tag("flag missing");
 				this.Sync("flag missing", true);
 			}
-
+			
 			u16 id = this.get_u16("flag id");
 			CBlob@ b = getBlobByNetworkID(id);
 			if (b !is null)

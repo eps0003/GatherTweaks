@@ -1,47 +1,52 @@
 # GatherTweaks
+
 Tweaks to balance Gather matches for Oceania players
 
-**Damage:**
-> Catapult stones do half damage to players  
-> Ballista bolts do quarter damage to players  
-> Swords do double damage to wooden doors  
-> Bombs do x0.5 more damage to wooden doors  
-> Boulders damage teammates  
-> Drills do x2 more damage to the players holding them when they overheat  
+## Damage
 
-**Costs:**
-> Ballista cost reduced from 200 to 100 coins  
-> Warboat cost reduced from 250 to 100 coins  
-> Ballista bolt cost reduced from 100 to 60 coins  
-> Ballista bold upgrade cost reduced from 100 to 60 coins  
-> Water bomb cost increased from 30 to 35 coins  
-> Mine cost reduced from 60 to 35 coins  
-> Keg cost reduced from 120 to 100 coins  
-> Water arrow cost increased from 20 to 30 coins  
-> Fire arrow cost decreased from 30 to 25 coins  
-> Sponges can be bought with 50 wood  
+- Catapult stones do half damage to players
+- Ballista bolts do quarter damage to players
+- Boulders damage teammates
 
-**Coins:**
-> Coins are not lost on death  
-> Coins are not lost on teamkill  
-> Coins are not received for damaging siege  
-> Blocks that gave 4 coins when placed now give 2 coins  
-> Coins received when building shops reduced from 10 to 4 coins  
+## Costs
 
-**Durations:**
-> Spawn time increased from 10 to 15 seconds  
-> Build time decreased from 180 to 100 seconds  
+- Catapult cost decreased from 120 to 80 coins
+- Ballista cost decreased from 150 to 100 coins
+- Warboat cost decreased from 250 to 100 coins
+- Ballista bolt cost decreased from 75 to 60 coins
+- Ballista bold upgrade cost decreased from 100 to 60 coins
+- Water bomb cost increased from 30 to 35 coins
+- Mine cost decreased from 60 to 35 coins
+- Keg cost decreased from 120 to 100 coins
+- Water arrow cost increased from 15 to 30 coins
+- Water arrow stack size decreased from 2 to 1 per stack
+- Fire arrow cost decreased from 30 to 25 coins
+- Sponges are bought with 50 wood instead of coins
 
-**Map:**
-> Width of bedrock under flag increased from 3 to 5 blocks  
-> Blocks are cleared from flag no build zone  
+## Drills
 
-**Misc:**
-> Water bombs/arrows stun teammates  
-> Water arrow stack size decreased from 2 to 1 per stack  
-> Doors stay open for 9 ticks after a player exits  
-> Platform fire spread rate is increased  
-> Wood given in warmup reduced from 300 to 200  
-> Stone given in warmup reduced from 100 to 70  
-> Drills are destroyed when they overheat  
-> Water bombs/arrows/buckets don't cool down drills  
+- Drills are destroyed when they overheat
+- Water bombs/arrows/buckets don't cool down drills
+- Drills do double damage to the players holding them when they overheat
+
+## Coins
+
+- Coins are not lost on death
+- Coins are not lost on teamkill
+- Coins are not received for damaging siege
+- Coins received when building shops decreased from 10 to 4 coins
+
+## Durations
+
+- Spawn time increased from 10 to 15 seconds
+- Build time decreased from 180 to 100 seconds
+- Doors stay open for 9 ticks after a player exits
+- Platform fire spread rate is increased
+
+## Map
+
+- Width of bedrock under flag increased from 3 to 5 blocks
+
+## Misc
+
+- Water bombs/arrows stun teammates
